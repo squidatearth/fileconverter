@@ -14,6 +14,11 @@
 
     <name>file converter web</name>
     <dependencies>
+
+        <dependency>
+            <groupId>com.ts.fileconverter</groupId>
+            <artifactId>coverter-core</artifactId>
+        </dependency>
         <!-- Unit Test -->
         <dependency>
             <groupId>junit</groupId>
