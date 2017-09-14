@@ -12,7 +12,7 @@
     <artifactId>fileconverter-app</artifactId>
     <packaging>war</packaging>
 
-    <name>file converter web</name>
+    <name>converter-webapp</name>
     <dependencies>
 
         <dependency>
@@ -64,25 +64,48 @@
             <artifactId>jstl</artifactId>
         </dependency>
     </dependencies>
-<build>
+   <profiles>
+    <profile>
+        <!-- When built in OpenShift the 'openshift' profile will be used when invoking mvn. -->
+        <!-- Use this profile for any OpenShift specific customization your app will need. -->
+        <!-- By default that is to put the resulting archive into the 'deployments' folder. -->
+        <!-- http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
+        <id>openshift</id>
+        <activation>
+            <activeByDefault>true</activeByDefault>
+        </activation>
+        <build>
+            <finalName>SampleApp</finalName>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-war-plugin</artifactId>
+                    <version>2.3</version>
+                    <configuration>
+                        <failOnMissingWebXml>false</failOnMissingWebXml>
+                        <outputDirectory>${project.basedir}/../target</outputDirectory>
+                        <warName>ROOT</warName>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </build>
+    </profile>
+   </profiles>
+<!--<build>
 		<finalName>filconverter</finalName>
 
 		<plugins>
-		    <!-- Eclipse project -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-eclipse-plugin</artifactId>
 				<version>2.9</version>
 				<configuration>
-				    <!-- Always download and attach dependencies source code -->
 					<downloadSources>true</downloadSources>
 					<downloadJavadocs>false</downloadJavadocs>
-					<!-- mvn eclipse:eclipse -Dwtpversion=2.0 -->
 					<wtpversion>2.0</wtpversion>
 				</configuration>
 			</plugin>
-			
-			<!-- Set JDK Compiler Level -->
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -93,8 +116,7 @@
 				</configuration>
 			</plugin>
 
-			<!-- For Tomcat -->
-			<plugin>
+		<plugin>
 				<groupId>org.apache.tomcat.maven</groupId>
 				<artifactId>tomcat7-maven-plugin</artifactId>
 				<version>2.2</version>
@@ -106,4 +128,5 @@
 		</plugins>
 
 	</build>
+-->
 </project>
